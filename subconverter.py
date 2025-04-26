@@ -118,8 +118,7 @@ def generate_conf(
 
 
 def convert(artifact: str = "") -> bool:
-    # bin = os.path.join(get_path(), "subconverter")
-    bin = os.path.join(get_path(), "subconverter-windows-amd.exe")
+    bin = os.path.join(get_path(), "subconverter")
     utils.chmod(bin)
 
     args = [bin, "-g"]

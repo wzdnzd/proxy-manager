@@ -10,9 +10,10 @@ import sys
 DEFAULT_LOG_LEVEL = logging.INFO
 DEFAULT_LOG_FMT = "%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s: %(message)s"
 DEFAULT_LOG_DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-DEFAULT_LOG_FILENAME = "workflow.log"
+DEFAULT_LOG_FILENAME = "distribute.log"
 
-PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+LOG_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "logs")
+os.makedirs(LOG_PATH, exist_ok=True)
 
 
 class Logger:
@@ -21,7 +22,7 @@ class Logger:
         if not self._logger.handlers:
             self.formatter = logging.Formatter(fmt=DEFAULT_LOG_FMT, datefmt=DEFAULT_LOG_DATETIME_FORMAT)
             self._logger.addHandler(self._get_console_handler())
-            self._logger.addHandler(self._get_file_handler(filename=os.path.join(PATH, DEFAULT_LOG_FILENAME)))
+            self._logger.addHandler(self._get_file_handler(filename=os.path.join(LOG_PATH, DEFAULT_LOG_FILENAME)))
             self._logger.setLevel(DEFAULT_LOG_LEVEL)
 
         # if python's version is 2, disable requests output info level log
@@ -29,13 +30,13 @@ class Logger:
             logging.getLogger("requests").setLevel(logging.WARNING)
 
     def _get_file_handler(self, filename):
-        """返回一个文件日志handler"""
+        """output log to file"""
         file_handler = logging.FileHandler(filename=filename, encoding="utf8")
         file_handler.setFormatter(self.formatter)
         return file_handler
 
     def _get_console_handler(self):
-        """返回一个输出到终端日志handler"""
+        """output log to console"""
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setFormatter(self.formatter)
         return console_handler

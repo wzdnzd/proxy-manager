@@ -4,6 +4,7 @@
 # @Time    : 2025-04-25
 
 
+import functools
 import os
 import platform
 import random
@@ -11,6 +12,7 @@ import re
 import string
 import subprocess
 import sys
+import threading
 
 from logger import logger
 
@@ -70,7 +72,7 @@ def extract_client(text: str) -> str:
     if content:
         if re.search(r"clash|mihomo", content, flags=re.I):
             return "clash"
-        elif re.search("singbox", content, flags=re.I):
+        elif re.search("sing-?box", content, flags=re.I):
             return "singbox"
         elif re.search(r"quan(ult)?x?", content, flags=re.I):
             return "quanx"
@@ -79,7 +81,7 @@ def extract_client(text: str) -> str:
         elif re.search(r"loon", content, flags=re.I):
             return "loon"
 
-    return "v2ray"
+    return "mixed"
 
 
 def isb64encode(content: str, padding: bool = True) -> bool:
@@ -117,3 +119,34 @@ def write_file(filename: str, lines: list) -> bool:
         return True
     except:
         return False
+
+
+def parse_supported_targets(text: str) -> set[str]:
+    content = trim(text)
+    if not content:
+        return set()
+
+    targets = set()
+    for word in content.split(","):
+        target = trim(word).lower()
+        if target in ["clash", "singbox", "mixed", "v2ray", "quanx", "surge", "loon"]:
+            targets.add(target)
+
+    return targets
+
+
+def singleton(obj):
+    _instance_dict = {}
+    _instance_lock = threading.Lock()
+
+    @functools.wraps(obj)
+    def wrapper(*args, **kwargs):
+        if obj in _instance_dict:
+            return _instance_dict.get(obj)
+
+        with _instance_lock:
+            if obj not in _instance_dict:
+                _instance_dict[obj] = obj(*args, **kwargs)
+        return _instance_dict.get(obj)
+
+    return wrapper

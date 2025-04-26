@@ -1,0 +1,8 @@
+DBUtils
+dotenv
+Flask
+PyMySQL
+PyYAML
+requests
+tqdm
+uvicorn

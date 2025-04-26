@@ -5,148 +5,201 @@
 
 
 import base64
-import json
 import os
 import random
 import re
+import threading
 import time
 import traceback
-from collections import defaultdict
 from concurrent import futures
-from dataclasses import dataclass
-from typing import Callable, Dict, List
+from datetime import datetime
+from typing import Callable, Dict, List, Optional, Tuple
 
 import yaml
 from tqdm import tqdm
 
-import setting
+import settings
 import subconverter
 import utils
+from cache import subscribe_cache as sc
 from logger import logger
-from pastefy import client as pastefy
-
-SUPPORTED_TARGRT = ["clash", "v2ray", "singbox", "loon", "surge", "quanx"]
+from subscribe import ConvertResult, SubscribeBase
 
 
 class QuotedStr(str):
     pass
 
 
-def quoted_scalar(dumper, data):
-    return dumper.represent_scalar("tag:yaml.org,2002:str", data, style='"')
+def quoted_scalar(dumper, data):  # pylint: disable=R0913
+    return dumper.represent_scalar("tag:yaml.org,2002:str", data, style='"')  # pylint: disable=R0913
 
 
-@dataclass
-class ConvertResult(object):
-    # target: clash, v2ray, singbox, loon, surge, quanx
-    target: str
+class ProxyProcessor(object):
+    """
+    A singleton class to manage proxy processing operations
+    with state tracking to prevent concurrent partition operations
+    """
 
-    # title: paste filename
-    title: str
+    _instance = None
+    _lock = threading.Lock()
 
-    # paste_id: paste id
-    paste_id: str
+    def __new__(cls, *args, **kwargs):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super().__new__(cls, *args, **kwargs)
+                cls._instance._initialize()
+            return cls._instance
 
-    # without_rules: whether to remove rules
-    without_rules: bool
+    def _initialize(self):
+        """Initialize the processor state"""
+        self._lock = threading.Lock()
+        self._is_processing = False
+        self._start_time = None
+        self._end_time = None
+        self._success = False
+        self._error_message = None
+
+    def is_processing(self) -> bool:
+        """Check if a partition operation is currently in progress"""
+        with self._lock:
+            return self._is_processing
+
+    def get_status(self) -> Dict:
+        """Get the current status of the processor"""
+        with self._lock:
+            status = {
+                "running": self._is_processing,
+                "start_time": self._start_time.isoformat() if self._start_time else None,
+                "duration": (
+                    (datetime.now() - self._start_time).total_seconds()
+                    if self._is_processing and self._start_time
+                    else None
+                ),
+                "last_run_time": self._start_time.isoformat() if self._start_time else None,
+                "last_run_duration": (
+                    (self._end_time - self._start_time).total_seconds() if self._end_time and self._start_time else None
+                ),
+                "last_run_success": self._success if not self._is_processing else None,
+                "error_message": self._error_message,
+            }
+            return status
+
+    def split(self, content: str, max_size: int) -> Tuple[bool, str]:
+        """
+        Split and process proxies
+
+        Args:
+            content: The proxy content to process
+            max_size: Maximum number of proxies per partition
+
+        Returns:
+            Tuple of (success, message)
+        """
+        # Check if already processing
+        with self._lock:
+            if self._is_processing:
+                duration = (datetime.now() - self._start_time).total_seconds() if self._start_time else 0
+                return False, f"A partition operation is already in progress and running for {duration:.1f} seconds"
+
+            # Mark as processing and record start time
+            self._is_processing = True
+            self._start_time = datetime.now()
+            self._error_message = None
+
+        # Mark the beginning of a partition operation to prevent individual cache updates
+        sc.start_partition_operation()
+
+        try:
+            if not content:
+                self._set_completed(False, "Empty content provided")
+                return False, "Empty content provided"
+
+            # delete old subconverter config file
+            subconverter_conf = os.path.join(subconverter.get_path(), "generate.ini")
+            if os.path.exists(subconverter_conf) and os.path.isfile(subconverter_conf):
+                os.remove(subconverter_conf)
+
+            max_size = max(max_size, 1)
+            proxies = decode(text=content)
+            if not proxies:
+                self._set_completed(False, "Failed to decode proxies")
+                return False, "Failed to decode proxies"
+
+            # split proxies into multiple partitions
+            partitions = []
+            for i in range(0, len(proxies), max_size):
+                part = proxies[i : i + max_size]
+                index = i // max_size + 1
+                partitions.append((part, index))
+
+            # execute convert
+            tasks = [[p[0], p[1], t, w] for p in partitions for t in settings.SUPPORTED_TARGRTS for w in [True, False]]
+            results = multi_thread_run(func=convert, tasks=tasks, show_progress=True, description="Convert")
+
+            successed_tasks, failed_tasks = [], []
+            for result in results:
+                sb = SubscribeBase(
+                    target=result.target,
+                    partition=result.partition,
+                    without_rules=result.without_rules,
+                )
+                if result.success:
+                    successed_tasks.append(sb)
+                else:
+                    failed_tasks.append(sb)
+
+            m, n, k = len(successed_tasks), len(failed_tasks), len(tasks)
+            logger.info(f"convert finished, success: {m}, failed: {n}, total: {k}")
+
+            if failed_tasks:
+                logger.warning(f"failed tasks: {failed_tasks}")
+
+            if m > 0:
+                # remove old partitions greater than len(partitions)
+                sc.clean_expired_partitions(partition=len(partitions) + 1)
+
+                # Mark the end of the partition operation and refresh the cache
+                sc.end_partition_operation(success=True)
+
+                self._set_completed(True)
+                return True, f"Successfully processed {m} out of {k} tasks"
+            else:
+                # Mark the end of the partition operation but don't refresh the cache
+                sc.end_partition_operation(success=False)
+
+                self._set_completed(False, "No tasks were successful")
+                return False, "No tasks were successful"
+        except Exception as e:
+            error_msg = f"Error in split operation: {str(e)}"
+            logger.error(error_msg)
+            # Make sure to end the partition operation even if an exception occurs
+            sc.end_partition_operation(success=False)
+
+            self._set_completed(False, error_msg)
+            return False, error_msg
+
+    def _set_completed(self, success: bool, error_message: Optional[str] = None):
+        """Mark the operation as completed and record the result"""
+        with self._lock:
+            self._is_processing = False
+            self._end_time = datetime.now()
+            self._success = success
+            self._error_message = error_message
 
 
-def split(content: str, max_size: int) -> Dict:
-    if not content:
-        return {}
-
-    # delete old subconverter config file
-    subconverter_conf = os.path.join(subconverter.get_path(), "generate.ini")
-    if os.path.exists(subconverter_conf) and os.path.isfile(subconverter_conf):
-        os.remove(subconverter_conf)
-
-    max_size = max(max_size, 1)
-    proxies = decode(text=content)
-    if not proxies:
-        return {}
-
-    # split proxies into multiple partitions
-    partitions = []
-    for i in range(0, len(proxies), max_size):
-        part = proxies[i : i + max_size]
-        index = i // max_size + 1
-        partitions.append((part, index))
-
-    #  create folder with time as parent folder
-    folder_name = time.strftime("%Y%m%d%H%M%S", time.localtime())
-    parent = pastefy.create_folder(name=folder_name, parent=setting.PASTEFY_PUBLIC_FOLDER_ID)
-    if not parent:
-        logger.error("cannot create folder as parent folder for saving converted content")
-        return {}
-
-    # create folder for each target
-    records = dict()
-    for target in SUPPORTED_TARGRT:
-        folder_id = pastefy.create_folder(name=target, parent=parent)
-        if not folder_id:
-            logger.warning(f"cannot create folder for saving converted content, target: {target}")
-        else:
-            records[target] = folder_id
-
-    # execute convert
-    tasks = [[p[0], p[1], t, w, f] for p in partitions for t, f in records.items() for w in [True, False]]
-    items = multi_thread_run(func=convert, tasks=tasks, show_progress=True, description="Convert")
-
-    result = {"folder_id": parent, "last_updated": int(time.time())}
-    result["items"] = defaultdict(dict)
-    flag = False
-
-    for item in items:
-        if not item or not isinstance(item, ConvertResult):
-            continue
-
-        flag = True
-        key = "without_rules" if item.without_rules else "with_rules"
-        result["items"][item.target][key][item.paste_id] = item.title
-
-    if not flag:
-        logger.warning(f"cannot convert any proxies, delete parent folder: {parent}")
-        pastefy.delete_folder(parent)
-        return {}
-
-    old_parent_id = ""
-
-    # get old parent folder id
-    history = pastefy.get_paste_content(paste_id=setting.HISTORY_PASTE_ID)
-    try:
-        data = json.loads(history)
-        if data and isinstance(data, dict):
-            old_parent_id = data.get("folder_id", "")
-    except:
-        logger.error(f"cannot load history paste content, paste_id: {setting.HISTORY_PASTE_ID}")
-
-    # update history paste
-    text = json.dumps(result, indent=4, ensure_ascii=False)
-    success = pastefy.update_paste(setting.HISTORY_PASTE_ID, content=text)
-    logger.error(
-        f"update history paste {"success" if success else "failed"}, paste_id: {setting.HISTORY_PASTE_ID}, content: {text}"
-    )
-
-    # delete old folder if update history paste successfully
-    if success and old_parent_id:
-        success = pastefy.delete_folder(old_parent_id)
-        logger.info(f"delete old folder {'success' if success else 'failed'}, folder_id: {old_parent_id}")
-
-    return result
+# Create a singleton instance
+processor = ProxyProcessor()
 
 
-def convert(proxies: List[Dict], index: int, target: str, without_rules: bool, folder_id: str) -> ConvertResult:
+def convert(proxies: List[Dict], partition: int, target: str, without_rules: bool) -> ConvertResult:
+    """Convert proxies to target format"""
+    result = ConvertResult(target=target, partition=partition, without_rules=without_rules)
     if not proxies or not isinstance(proxies, list):
-        return None
+        return result
 
     target = utils.trim(target)
-    if target not in SUPPORTED_TARGRT:
-        return None
-
-    folder_id = utils.trim(folder_id)
-    if not folder_id:
-        logger.error("folder_id is required for saving converted content")
-        return None
+    if target not in settings.SUPPORTED_TARGRTS:
+        return result
 
     # save to file
     data = {"proxies": proxies}
@@ -161,7 +214,7 @@ def convert(proxies: List[Dict], index: int, target: str, without_rules: bool, f
     time.sleep(random.random() * 3)
 
     # generate convert config
-    artifact = f"{target}-{index}-{str(without_rules).lower()}"
+    artifact = f"{target}-{partition}-{str(without_rules).lower()}"
     extension = subconverter.get_extension(target=target)
     dest = f"{artifact}.{extension}"
 
@@ -173,40 +226,62 @@ def convert(proxies: List[Dict], index: int, target: str, without_rules: bool, f
         target=target,
         list_only=without_rules,
     )
+
+    source_file = os.path.join(path, source)
     if not success:
-        if os.path.exists(os.path.join(path, source)):
-            os.remove(os.path.join(path, source))
+        if os.path.exists(source_file) and os.path.isfile(source_file):
+            os.remove(source_file)
 
         logger.error(
-            f"cannot generate subconverter config file, target: {target}, index: {index}, without_rules: {without_rules}"
+            f"cannot generate subconverter config file, target: {target}, index: {partition}, without_rules: {without_rules}"
         )
-        return None
+        return result
 
     # call subconverter to convert
     success = subconverter.convert(artifact=artifact)
-    if not success:
-        logger.error(f"subconverter convert failed, target: {target}, index: {index}, without_rules: {without_rules}")
-        return None
 
+    # delete source file
+    if os.path.exists(source_file) and os.path.isfile(source_file):
+        os.remove(source_file)
+
+    if not success:
+        logger.error(
+            f"subconverter convert failed, target: {target}, index: {partition}, without_rules: {without_rules}"
+        )
+        return result
+
+    # read dest file content and delete dest file
     content, filepath = "", os.path.join(path, dest)
     if os.path.exists(filepath) and os.path.isfile(filepath):
         with open(filepath, "r", encoding="utf8", errors="ignore") as f:
             content = f.read()
 
+        # delete dest file
         os.remove(filepath)
 
     if not content:
-        logger.error(f"cannot get converted content, target: {target}, index: {index}, without_rules: {without_rules}")
-        return None
+        logger.error(
+            f"cannot get converted content, target: {target}, index: {partition}, without_rules: {without_rules}"
+        )
+        return result
 
-    # save to pastefy
-    title = f"{'without-rules' if without_rules else 'with-rules'}-{index}.{extension}"
-    pid = pastefy.create_paste(content=content, title=title, folder=folder_id)
-    if not pid:
-        logger.error(f"cannot create paste, target: {target}, index: {index}, without_rules: {without_rules}")
-        return None
+    mixed = target == "v2ray" or target == "mixed" or "ss" in target
+    if mixed and not utils.isb64encode(content=content):
+        # base64 encode
+        try:
+            content = base64.b64encode(content.encode(encoding="UTF8")).decode(encoding="UTF8")
+        except Exception:
+            logger.error(f"base64 encode error, target: {target}, index: {partition}, without_rules: {without_rules}")
+            return result
 
-    return ConvertResult(target=target, title=title, paste_id=pid, without_rules=without_rules)
+    # update database and cache (cache update will be skipped if partition operation is in progress)
+    success = sc.update(target=target, content=content, without_rules=without_rules, partition=partition)
+    result.success = success
+
+    logger.info(
+        f"convert completed, target: {target}, index: {partition}, without_rules: {without_rules}, success: {success}"
+    )
+    return result
 
 
 def decode(text: str, artifact: str = "") -> List[Dict]:
@@ -233,7 +308,7 @@ def decode(text: str, artifact: str = "") -> List[Dict]:
         with open(v2ray_file, "w+", encoding="UTF8") as f:
             f.write(text)
             f.flush()
-    except:
+    except Exception:
         if os.path.exists(v2ray_file):
             os.remove(v2ray_file)
 
@@ -263,11 +338,11 @@ def decode(text: str, artifact: str = "") -> List[Dict]:
             reader.seek(0, 0)
             yaml.add_multi_constructor(
                 "str",
-                lambda loader, suffix, node: str(node.value),
+                lambda _loader, _suffix, node: str(node.value),
                 Loader=yaml.SafeLoader,
             )
             config = yaml.load(reader, Loader=yaml.SafeLoader)
-        except Exception as e:
+        except Exception:
             logger.error(f"cannot load yaml file, artifact: {artifact}, message:\n{traceback.format_exc()}")
 
         nodes = [] if not config else config.get("proxies", [])

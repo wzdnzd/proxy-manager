@@ -1,0 +1,1422 @@
+proxies:
+- name: 🇨🇳 [wzdnzd/aggregator] CN 176
+  password: 9015ae70-d970-4802-8650-2738de9b6692
+  port: 43393
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港 056
+  password: af71bbb7-82d7-4322-be57-24ee4b77bf38
+  port: 27103
+  server: sla.cn.964e995b760.gogodns.xin
+  skip-cert-verify: false
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: 🇭🇰 [wzdnzd/aggregator] 中国-香港 18
+  network: ws
+  port: 23023
+  server: 212.192.12.154
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 3e6abebd-b21e-404d-bc95-40202422bb1f
+  ws-opts:
+    path: /
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 270
+  password: 219aff7a-5ca5-4aa3-a1e4-e4222eea143f
+  port: 22269
+  server: 120.232.220.45
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] F7-WSX 01'
+  network: ws
+  port: 443
+  server: www.ipget.net
+  servername: fm3.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: 13fd81b2-e6ce-44eb-8d86-d93599cf3292
+  ws-opts:
+    headers:
+      Host: fm3.pages.dev
+    path: /?ed=2560
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 590
+  password: 89c0f8ab-633a-48de-81a9-80fd88dea056
+  port: 27102
+  server: 58.254.186.222
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇻🇳 [wzdnzd/aggregator] 越南-云 10
+  password: 24f6e993-ed63-4653-ad69-3b835da2d051
+  port: 43396
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] CT 026'
+  network: ws
+  port: 443
+  server: 162.159.153.239
+  servername: zzz.seekerkkk.sbs
+  tls: true
+  type: vless
+  udp: true
+  uuid: ca8edbf8-44ff-4248-b431-f42e8a020054
+  ws-opts:
+    headers:
+      Host: zzz.seekerkkk.sbs
+    path: /proxyip=proxyip.tp42595.s2.uno.090227.xyz
+- name: 🇭🇰 [wzdnzd/aggregator] HK 283
+  password: b5618498-1727-4894-9606-f28509ba3354
+  port: 46927
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 477
+  password: 37edb747-3e04-49a0-af21-f3e799a8c041
+  port: 27002
+  server: 183.240.116.235
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇹🇼 [wzdnzd/aggregator] 台湾-云 303
+  password: c6cbecf7-3eb0-4884-98b8-64cd78ec1bea
+  port: 27201
+  server: 183.240.116.252
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇰🇷 [wzdnzd/aggregator] KR 246
+  password: 1bb45961-051d-4072-8160-5d298f479f02
+  port: 46668
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 489
+  password: d3fdb992-e130-40d5-ba6d-64363822a793
+  port: 27101
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: randomized
+  name: '[wzdnzd/aggregator] 096'
+  network: ws
+  port: 443
+  server: iplocation.io
+  servername: sub.divib.dynv6.net
+  tls: true
+  type: vless
+  udp: true
+  uuid: b1a8ceea-6601-45b5-a674-7e5b64ab6f6f
+  ws-opts:
+    headers:
+      Host: sub.divib.dynv6.net
+    path: /?ed=2560
+- name: '[wzdnzd/aggregator] RELAY-TR-TR 47'
+  password: ef16dfa3-b19d-4237-8201-4914b82c3984
+  port: 43397
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] HK 235
+  password: e3e329b6-b50a-4649-9908-d3d84f22a767
+  port: 46927
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国直连-TROJAN 19
+  password: 504aed84-d8e5-4076-bbc1-16a1e423cdf2
+  port: 443
+  server: v12.nmcf.me
+  skip-cert-verify: false
+  sni: v12.nmcf.me
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] 119'
+  network: ws
+  password: '12345678'
+  port: 443
+  server: www.okcupid.com
+  skip-cert-verify: true
+  sni: 7bdfb97a.ikl.pages.dev
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: 7bdfb97a.ikl.pages.dev
+    path: /7bdfb97a.ikl.pages.dev/?ed=2560
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 594
+  password: 1934a466-f9cf-4e9b-b075-e1f2c9e40600
+  port: 27001
+  server: 163.177.47.36
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 579
+  password: 2e8ca43a-e196-4444-abb7-8de273a938f1
+  port: 27301
+  server: 183.240.116.224
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alpn:
+  - h3
+  name: 🇭🇰 [wzdnzd/aggregator] HK 050
+  network: ws
+  password: ttfang
+  port: 54321
+  server: 59.149.204.218
+  skip-cert-verify: true
+  sni: ttfang.fange.me
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: ttfang.fange.me
+    path: /?ed=2560
+- name: 🇫🇷 [wzdnzd/aggregator] 法国-云 25
+  password: b598a14c-6956-43d6-af93-49ec75da0fc0
+  port: 43498
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-SZO 01'
+  network: ws
+  port: 2096
+  server: 162.159.153.126
+  servername: w-am1.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: 58f80cb8-1ed4-405c-adac-165d4ab30fd9
+  ws-opts:
+    headers:
+      Host: w-am1.pages.dev
+    path: /?ed=2560
+- name: '[wzdnzd/aggregator] 175'
+  network: ws
+  password: wwg1122.
+  port: 443
+  server: otto.ns.cloudflare.com
+  skip-cert-verify: true
+  sni: am-cf-trojan-6j9.pages.dev
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: am-cf-trojan-6j9.pages.dev
+    path: /am-cf-trojan-6j9.pages.dev/?ed=2560
+- name: '[wzdnzd/aggregator] 172'
+  network: ws
+  password: '12345678'
+  port: 443
+  server: 172.67.95.24
+  skip-cert-verify: true
+  sni: 7bdfb97a.ikl.pages.dev
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: 7bdfb97a.ikl.pages.dev
+    path: /7bdfb97a.ikl.pages.dev/?ed=2560
+- name: 🇫🇷 [wzdnzd/aggregator] FR 43
+  password: d74aecc2-ccad-4dbf-b15b-e3c10d4acc56
+  port: 43498
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 100
+  password: 9fa156b0-fa08-4fb0-b158-c206625d2506
+  port: 22269
+  server: 183.240.116.252
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] RELAY-TR-TR 15'
+  password: 2103f72a-4924-4801-96fe-83a3cef3c646
+  port: 43397
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 506
+  password: 4f2717df-e1d7-4b17-b80b-5bbcaa34278e
+  port: 34014
+  server: 125.94.45.119
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇵🇭 [wzdnzd/aggregator] 菲律宾-云 07
+  password: ec08c296-c059-4365-9c78-256ebf7e398c
+  port: 27408
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 281
+  password: b3fcd978-c6ae-4d63-beea-9a7a2c2aebc8
+  port: 27102
+  server: 183.2.150.98
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇸🇬 [wzdnzd/aggregator] RELAY-SG-ZZ 12
+  password: c7777468-1372-4432-a42b-f79c6b2db46d
+  port: 42881
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] 169'
+  network: ws
+  password: wwg1122.
+  port: 443
+  server: www.ipchicken.com
+  skip-cert-verify: true
+  sni: am-cf-trojan-6j9.pages.dev
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: am-cf-trojan-6j9.pages.dev
+    path: /am-cf-trojan-6j9.pages.dev/?ed=2560
+- name: 🇹🇼 [wzdnzd/aggregator] 台湾-云 311
+  password: 9a53d0fc-cc9f-44fc-ad99-887480815008
+  port: 27201
+  server: 183.2.150.64
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 001
+  password: a2b8ea34-de13-4c14-87eb-640712206360
+  port: 27102
+  server: 183.2.150.90
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 198
+  password: b2781a3e-4aea-4544-a460-b5e6c32d47e1
+  port: 27301
+  server: 183.2.150.98
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: 🇺🇸 [wzdnzd/aggregator] 美国加州 01
+  port: 5228
+  server: 7ac9b002-svhls0-t0ces9-1rs9e.cu.plebai.net
+  tls: false
+  type: vmess
+  udp: true
+  uuid: e651d432-320c-11ef-a119-f23c9164ca5d
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 539
+  password: 708a677b-8644-463f-8eea-18aea39c9bc0
+  port: 33506
+  server: 183.240.116.224
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] RELAY-US-US 054
+  password: 17da6c27-d598-425b-b62a-c1ae0e4e5cfa
+  port: 33506
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇺🇦 [wzdnzd/aggregator] BK-CUA 01
+  network: ws
+  port: 2087
+  server: 190.93.247.163
+  servername: xpvip168.eu.org
+  tls: true
+  type: vless
+  udp: true
+  uuid: e8009279-c1e1-462c-bce6-6dff61fc0b84
+  ws-opts:
+    headers:
+      Host: xpvip168.eu.org
+    path: /?ed=2560
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 614
+  password: 25824011-5989-4fe4-ad30-f7abf6fac9f4
+  port: 33505
+  server: 58.254.186.231
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] RELAY-TR-TR 45'
+  password: fc237aed-7067-49f0-a0f6-f9e499b8ee7a
+  port: 43397
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇸🇬 [wzdnzd/aggregator] 新加坡-云 125
+  password: 53934412-3e36-4ce6-8cc8-478ce238db80
+  port: 27401
+  server: 183.240.116.235
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇰🇷 [wzdnzd/aggregator] 韩国 12
+  network: ws
+  password: shifeng
+  port: 56803
+  server: 131.186.16.245
+  skip-cert-verify: true
+  sni: vk.eva-anything.asia
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: vk.eva-anything.asia
+    path: /?proxyip=proxyip.fxxk.dedyn.io
+- name: '[wzdnzd/aggregator] ID 72'
+  password: 29bf3b30-6ed9-4862-b4c3-b148c7e3e315
+  port: 43394
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇵🇭 [wzdnzd/aggregator] 菲律宾-云 29
+  password: b4be7d21-22c8-4960-b9ed-97dbfe023b71
+  port: 27408
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-SWI 01'
+  network: ws
+  port: 443
+  server: 172.64.89.212
+  servername: w-a1o.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: 58f80cb8-1ed4-405c-adac-165d4ab30fd9
+  ws-opts:
+    headers:
+      Host: w-a1o.pages.dev
+    path: /?ed=2560
+- name: '[wzdnzd/aggregator] AR 79'
+  password: 8a33c64e-a20a-416c-b88f-99b3e9f9352f
+  port: 43590
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 004
+  password: 5fafbbf0-b89e-47f1-95ba-97914c40b841
+  port: 22269
+  server: 183.240.116.252
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] 节点 08'
+  network: ws
+  port: 443
+  server: 104.16.47.139
+  servername: loveskyvpn1-d7l.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: 3714f1fc-6386-49da-9824-ea16b6e38a82
+  ws-opts:
+    headers:
+      Host: loveskyvpn1-d7l.pages.dev
+    path: /?ed=2560
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 263
+  password: cb7dd7bf-2ba0-4445-b1f2-c7374143e7c8
+  port: 22269
+  server: 183.2.150.64
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇺🇸 [wzdnzd/aggregator] US 231
+  network: ws
+  port: 443
+  server: 63.141.128.49
+  servername: zzz.seekerkkk.sbs
+  tls: true
+  type: vless
+  udp: true
+  uuid: ca8edbf8-44ff-4248-b431-f42e8a020054
+  ws-opts:
+    headers:
+      Host: zzz.seekerkkk.sbs
+    path: /?ed=2560
+- alterId: 0
+  cipher: auto
+  name: 🇯🇵 [wzdnzd/aggregator] IEPL专线-日本 24
+  network: ws
+  port: 8004
+  server: 59.42.247.189
+  tls: false
+  type: vmess
+  udp: true
+  uuid: c46e91a7-9cd6-49e4-896a-cee08cfb92a2
+  ws-opts:
+    headers:
+      Host: www.bing.com
+    path: /nmkj
+- name: 🇲🇾 [wzdnzd/aggregator] MY 21
+  password: feaf4df9-7e26-4679-8343-f0c410ac22f2
+  port: 43383
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 218
+  password: 9ffe1fcb-8f46-49d8-ac7f-78285884116d
+  port: 27102
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] AE 168'
+  password: 65b7f98d-8cbe-4d11-b9a0-d5e68595d46b
+  port: 42882
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-QYT 01'
+  network: ws
+  port: 443
+  server: 104.16.90.65
+  servername: paipai-kti.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: c15c1a64-4400-4447-a458-d884be35d624
+  ws-opts:
+    headers:
+      Host: paipai-kti.pages.dev
+    path: /?ed=2560
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-KWS 01'
+  network: ws
+  port: 443
+  server: 162.159.152.50
+  servername: 0107-7z4.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: f6c821e7-36b6-4377-94f0-3387019971c0
+  ws-opts:
+    headers:
+      Host: 0107-7z4.pages.dev
+    path: /?ed=2560
+- name: 🇹🇼 [wzdnzd/aggregator] 台湾-云 154
+  password: 66bfb09d-f3ea-4d02-a179-ef21a21aacb0
+  port: 27202
+  server: 183.2.150.90
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] HK 096
+  password: b0e540fe-cdc9-4701-9ef0-200fc1779885
+  port: 27101
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] JP 089
+  password: e8d3c223-df02-45b8-8fb8-8c20047714ca
+  port: 22271
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] RELAY-HK-TR 01
+  password: e3b13b82-f6e6-4cf3-b345-97668189ea51
+  port: 43397
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 298
+  password: feaf4df9-7e26-4679-8343-f0c410ac22f2
+  port: 27301
+  server: 183.2.150.64
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 104
+  password: 26594d5a-49e7-477c-aa78-b51953c585c2
+  port: 10465
+  server: 58.254.186.222
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇫🇷 [wzdnzd/aggregator] 法国-云 11
+  password: 4cfae85f-b236-410f-ac72-fe340530aee2
+  port: 43498
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] HKG 香港 07
+  password: 616F5C28-A1B2-D7C7-2F5D-46AC56436130
+  port: 8100
+  server: bldgz.linkcubecloud.dev
+  skip-cert-verify: true
+  sni: cos.ap-guangzhou.myqcloud.com
+  type: trojan
+  udp: true
+- client-fingerprint: randomized
+  name: '[wzdnzd/aggregator] 423'
+  network: ws
+  port: 443
+  server: www.csgo.com
+  servername: steep.skyfigure.top
+  tls: true
+  type: vless
+  udp: true
+  uuid: 63601f9f-7c67-4952-919a-1ef802b5a7ec
+  ws-opts:
+    headers:
+      Host: steep.skyfigure.top
+    path: /?ed=2560
+- name: 🇺🇸 [wzdnzd/aggregator] 美国直连-TROJAN 10
+  password: 5f981f88-2152-40c6-8312-7f36dc0e64ad
+  port: 443
+  server: v12.nmcf.me
+  skip-cert-verify: false
+  sni: v12.nmcf.me
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇺🇸 [wzdnzd/aggregator] US 178
+  network: ws
+  port: 18446
+  server: 154.17.21.134
+  servername: yongyuan.buxiayu.sbs
+  tls: true
+  type: vless
+  udp: true
+  uuid: c380fdd8-990d-4542-be7a-552be00c240a
+  ws-opts:
+    headers:
+      Host: yongyuan.buxiayu.sbs
+    path: /proxyip=154.17.21.134:18446
+- alterId: 0
+  cipher: auto
+  name: '[wzdnzd/aggregator] 其他地区 34'
+  network: ws
+  port: 443
+  server: yymg02.haibo168.com
+  tls: true
+  type: vmess
+  udp: true
+  uuid: e85aa4fe-5812-4356-e10e-b05840a6920d
+  ws-opts:
+    headers:
+      Host: yymg02.haibo168.com
+    path: /yymg1234
+- name: 🇩🇪 [wzdnzd/aggregator] 德国 39
+  network: ws
+  password: redfree8
+  port: 443
+  server: 104.17.147.22
+  skip-cert-verify: true
+  sni: ipsychO.SUEx12.Ir
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: ipsychO.SUEx12.Ir
+    path: /trre5IzbZ9IZZMddtw?ed=2560
+- name: 🇭🇰 [wzdnzd/aggregator] HK 294
+  password: ef16dfa3-b19d-4237-8201-4914b82c3984
+  port: 27101
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] CMCC 139'
+  network: ws
+  port: 443
+  server: 104.16.249.115
+  servername: fast01.0860852.xyz
+  tls: true
+  type: vless
+  udp: true
+  uuid: 2456f90c-5183-476d-b069-16ae74ce120f
+  ws-opts:
+    headers:
+      Host: fast01.0860852.xyz
+    path: /?ed=2560
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 002
+  password: 81a139fa-3795-4a78-8480-bb760485c6fa
+  port: 22271
+  server: 163.177.47.36
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇲🇾 [wzdnzd/aggregator] MY 79
+  password: bce2738d-4071-4718-9363-38d60bc2dc57
+  port: 43383
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港1号线NETFLIX等流媒体解锁解锁 01
+  password: 4a408637-8401-4e8f-a317-3680580b0944
+  port: 28503
+  server: green2.cdntencentmusic.com
+  skip-cert-verify: true
+  sni: green2.cdntencentmusic.com
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] CF 066'
+  network: ws
+  port: 443
+  server: 104.18.205.133
+  servername: fq.hongshi.com.mp
+  tls: true
+  type: vless
+  udp: true
+  uuid: 869779d6-3d4c-476e-a870-c6f99edfefcb
+  ws-opts:
+    headers:
+      Host: fq.hongshi.com.mp
+    path: /?ed=2560
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-LHE 01'
+  network: ws
+  port: 443
+  server: 103.21.244.42
+  servername: 520588.xyz
+  tls: true
+  type: vless
+  udp: true
+  uuid: dbcb9bf7-a5b8-43c3-8ffe-1d3bc320dcb6
+  ws-opts:
+    headers:
+      Host: 520588.xyz
+    path: /?ed=2560
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] CF 043'
+  network: ws
+  port: 443
+  server: 104.19.77.50
+  servername: 123456789-1xt.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: ae12c293-e971-4a5b-b7bb-fe7ab5b5a8be
+  ws-opts:
+    headers:
+      Host: 123456789-1xt.pages.dev
+    path: /?ed=2560
+- name: 🇭🇰 [wzdnzd/aggregator] 香港3号线NETFLIX等流媒体解锁解锁 02
+  password: d3dc3d5d-e789-4b8d-8801-b64680b97189
+  port: 28505
+  server: green2.cdntencentmusic.com
+  skip-cert-verify: true
+  sni: green2.cdntencentmusic.com
+  type: trojan
+  udp: true
+- alpn:
+  - h3
+  name: 🇰🇷 [wzdnzd/aggregator] KR 028
+  network: ws
+  password: yddc123456
+  port: 30012
+  server: 118.47.65.248
+  skip-cert-verify: true
+  sni: tj.1314191.xyz
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: tj.1314191.xyz
+    path: /proxyip=118.47.65.248:30012
+- name: 🇺🇸 [wzdnzd/aggregator] RELAY-US-US 074
+  password: 2a9562cb-8d5f-46a9-8c07-c01cb5eae107
+  port: 33506
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 139
+  password: f939e5cd-6c27-4545-b1b1-75a000b57ecd
+  port: 33506
+  server: 183.240.116.252
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇹🇷 [wzdnzd/aggregator] 土耳其-云 02
+  password: f0b31819-ed94-45c9-abdd-6edda47c408d
+  port: 43397
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alpn:
+  - http%2F1.1
+  name: 🇰🇷 [wzdnzd/aggregator] KR 010
+  network: ws
+  password: zhs000666
+  port: 12529
+  server: 49.1.224.28
+  skip-cert-verify: true
+  sni: 333-dgz.pages.dev
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: 333-dgz.pages.dev
+    path: /?ed=2560
+- alpn:
+  - h3
+  name: 🇰🇷 [wzdnzd/aggregator] KR 135
+  network: ws
+  password: '3699'
+  port: 16072
+  server: 218.157.158.21
+  skip-cert-verify: true
+  sni: tp3.bj369.dynv6.net
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: tp3.bj369.dynv6.net
+    path: /?ed=2560&proxyip=proxyip.aliyun.fxxk.dedyn.io
+- name: 🇯🇵 [wzdnzd/aggregator] 日本 013
+  password: 83339efc-5795-41f9-a71d-9f92dbafe83e
+  port: 27002
+  server: sla.cn.964e995b760.gogodns.xin
+  skip-cert-verify: false
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇸🇬 [wzdnzd/aggregator] SGP 狮城 06
+  password: 616F5C28-A1B2-D7C7-2F5D-46AC56436130
+  port: 8305
+  server: bldgz.linkcubecloud.dev
+  skip-cert-verify: true
+  sni: cos.ap-guangzhou.myqcloud.com
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] JP 174
+  password: 243e2ebf-0a68-4fe8-9a45-ea96b6048579
+  port: 22269
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 694
+  password: 1af35ef4-ac8b-4b39-b79b-58aa36d90602
+  port: 22271
+  server: 183.240.116.252
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alpn:
+  - h3
+  name: 🇰🇷 [wzdnzd/aggregator] KR 075
+  network: ws
+  password: '3699'
+  port: 443
+  server: 123.111.169.70
+  skip-cert-verify: true
+  sni: tp3.bj369.dynv6.net
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: tp3.bj369.dynv6.net
+    path: /?ed=2560&proxyip=proxyip.aliyun.fxxk.dedyn.io
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] CO-VOK 01'
+  network: ws
+  port: 443
+  server: www.visa.com.sg
+  servername: cty739.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: b5cdac57-a73c-41dd-af13-c50c015c7054
+  ws-opts:
+    headers:
+      Host: cty739.pages.dev
+    path: /?ed=2560
+- name: 🇨🇳 [wzdnzd/aggregator] CN 025
+  password: 2e3be3a5-be8b-4238-8a88-aeac5e3188b7
+  port: 27408
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 294
+  password: 94e04801-4a26-4301-82b3-02bda6d718b5
+  port: 33505
+  server: 58.254.186.233
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] US 258
+  network: ws
+  password: '3699'
+  port: 443
+  server: 69.84.182.48
+  skip-cert-verify: true
+  sni: vp6.mg369.dynv6.net
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: vp6.mg369.dynv6.net
+    path: /?ed=2560
+- name: 🇺🇸 [wzdnzd/aggregator] 美国直连-TROJAN 02
+  password: 68261662-982a-41b5-94ff-dad406a41c03
+  port: 443
+  server: v12.nmcf.me
+  skip-cert-verify: false
+  sni: v12.nmcf.me
+  type: trojan
+  udp: true
+- cipher: aes-256-gcm
+  name: 🇺🇸 [wzdnzd/aggregator] US 265
+  password: WCQR8N2VIN3M7BDO
+  port: 17007
+  server: ti3hyra4.slashdevslashnetslashtun.net
+  type: ss
+  udp: true
+- client-fingerprint: random
+  name: 🇰🇷 [wzdnzd/aggregator] 韩国 36
+  network: ws
+  port: 443
+  server: 158.180.82.186
+  servername: guishou.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: 22ad9d53-e361-43cf-ac12-d3b665ff4e42
+  ws-opts:
+    headers:
+      Host: guishou.pages.dev
+    path: /?ed=2560
+- name: 🇹🇼 [wzdnzd/aggregator] 台湾 06
+  password: d5b94c50-ae55-474c-8258-d18ec9c03d22
+  port: 27201
+  server: sla.cn.964e995b760.gogodns.xin
+  skip-cert-verify: false
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇭🇰 [wzdnzd/aggregator] 高级专线香港 07
+  password: lE9uL5fR3yR9
+  plugin: obfs
+  plugin-opts:
+    host: bf93027192.iqiyi.com
+    mode: http
+  port: 14101
+  server: aexgzbgp01.114837322.xyz
+  type: ss
+  udp: true
+- name: 🇬🇧 [wzdnzd/aggregator] GB 134
+  network: ws
+  password: ttfang
+  port: 443
+  server: 217.163.76.155
+  skip-cert-verify: true
+  sni: ttfang.fange.me
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: ttfang.fange.me
+    path: /?ed=2560
+- name: '[wzdnzd/aggregator] ID 58'
+  password: 44f59d96-e51d-403f-9ed1-59f359124da1
+  port: 43394
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- auth: b237f953-7d84-420a-8076-5b3b36c36f1e
+  name: '[wzdnzd/aggregator] 高速 11'
+  obfs: salamander
+  obfs-password: ZDQxZDhjZDk4ZjAwYjIwNA==
+  password: b237f953-7d84-420a-8076-5b3b36c36f1e
+  port: 13301
+  server: baipiaoyun-us-la.baipiaoyun.site
+  skip-cert-verify: true
+  sni: apple.com
+  type: hysteria2
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: '[wzdnzd/aggregator] 15免费节点-位置不固定 08'
+  network: ws
+  port: 80
+  server: 172.67.230.242
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 22474cc4-22a9-4c74-bae8-43f08a1c6ed4
+  ws-opts:
+    headers:
+      Host: 590057677051982025042519350870363.s15.chibaba.filegear-sg.me
+    path: /s15.html
+- name: 🇩🇪 [wzdnzd/aggregator] DE 40
+  password: cf9b7b9d-594b-4cd8-b8b2-9609edf17f7b
+  port: 43583
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] 晴天随机节点 05'
+  network: ws
+  port: 2053
+  server: 104.16.22.210
+  servername: vip.shazi.tk
+  tls: true
+  type: vless
+  udp: true
+  uuid: f3761cb6-1d18-4f5b-b480-f23f02585704
+  ws-opts:
+    headers:
+      Host: vip.shazi.tk
+    path: /?ed=2560
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 033
+  password: 23ecfeba-b956-410e-8333-80242c7e24e6
+  port: 33505
+  server: 183.240.116.235
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 518
+  password: 345b60a9-78f1-4c5e-bda4-9c1eadabb190
+  port: 27101
+  server: 58.254.186.231
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] RELAY-US-US 062
+  password: 9f69cdfd-746c-44c9-b7c4-db18b4ed7b92
+  port: 27301
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] AE 042'
+  password: b101f1f7-9156-4ce3-b794-4fa72c8cf34f
+  port: 42882
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇰🇷 [wzdnzd/aggregator] KR 034
+  password: 2a24f388-8f32-4232-bede-30bded6a37f9
+  port: 46668
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇦🇺 [wzdnzd/aggregator] AU 11
+  network: ws
+  port: 443
+  server: 140.238.201.118
+  servername: test1.testspeed.sbs
+  tls: true
+  type: vless
+  udp: true
+  uuid: 689e5c9c-3c97-4eaf-9716-287dffa6afe0
+  ws-opts:
+    headers:
+      Host: test1.testspeed.sbs
+    path: /?ed=2560
+- name: 🇸🇬 [wzdnzd/aggregator] 新加坡-云 127
+  password: 8ce6224d-a182-4f24-82ae-c6a0ba3a4fc2
+  port: 27401
+  server: 183.2.150.90
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇺🇸 [wzdnzd/aggregator] 美国-云 071
+  password: 7a046f90-fbfd-47ee-89fd-0062318523df
+  port: 34014
+  server: 58.254.186.222
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇨🇳 [wzdnzd/aggregator] CN 039
+  password: b9863985-fcad-4aa2-ba8a-8b270760198e
+  port: 43393
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: '[wzdnzd/aggregator] 9免费节点-位置不固定 09'
+  network: ws
+  port: 80
+  server: 172.64.91.86
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 22474cc4-22a9-4c74-bae8-43f08a1c6ed4
+  ws-opts:
+    headers:
+      Host: 761478328076462025042519350831830.s15.chibaba.filegear-sg.me
+    path: /s15.html
+- name: '[wzdnzd/aggregator] 10-VLESS-IPV 01'
+  network: ws
+  port: 8443
+  server: 172.66.44.193
+  servername: add-1Cv.pAGeS.dEv
+  tls: true
+  type: vless
+  udp: true
+  uuid: 2836c061-ea09-45e5-a98e-4ca478e744b0
+  ws-opts:
+    headers:
+      Host: add-1Cv.pAGeS.dEv
+    path: /lw35kSz5kINVqPF9/Y2RuLWIxMDAueG4tLWI2Z2FjLmV1Lm9yZw==?ed=2560
+- name: 🇷🇺 [wzdnzd/aggregator] RU 12
+  network: ws
+  password: '3699'
+  port: 443
+  server: 45.67.215.252
+  skip-cert-verify: true
+  sni: vp6.mg369.dynv6.net
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: vp6.mg369.dynv6.net
+    path: /?ed=2560
+- name: 🇺🇸 [wzdnzd/aggregator] RELAY-US-US 089
+  password: 9015ae70-d970-4802-8650-2738de9b6692
+  port: 27301
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: 🇺🇸 [wzdnzd/aggregator] 美国NO. 01
+  port: 45053
+  server: xdd.dashuai.cyou
+  tls: false
+  type: vmess
+  udp: true
+  uuid: b9d7e1b2-912d-4e7c-b679-c310a9be23c9
+- name: 🇨🇦 [wzdnzd/aggregator] CA 11
+  password: d62588f2-768d-42a9-83e1-ba483ec58580
+  port: 34016
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇮🇹 [wzdnzd/aggregator] 意大利-云 22
+  password: 19ef6ed7-56db-4ea4-96b7-24d416413697
+  port: 46927
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇬🇧 [wzdnzd/aggregator] GB 071
+  network: ws
+  port: 443
+  server: 217.163.76.12
+  servername: test1.testspeed.sbs
+  tls: true
+  type: vless
+  udp: true
+  uuid: 689e5c9c-3c97-4eaf-9716-287dffa6afe0
+  ws-opts:
+    headers:
+      Host: test1.testspeed.sbs
+    path: /?ed=2560
+- name: 🇸🇬 [wzdnzd/aggregator] 新加坡-云 364
+  password: 3f7109f5-8a9a-4bc4-93ae-b0092703d6e0
+  port: 42881
+  server: 183.2.150.90
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 300
+  password: 6df30114-d0ea-48ae-b954-67e252e834ef
+  port: 27101
+  server: 45.146.232.171
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- alpn:
+  - h3
+  name: 🇰🇷 [wzdnzd/aggregator] KR 049
+  network: ws
+  password: '3699'
+  port: 56803
+  server: 131.186.16.245
+  skip-cert-verify: true
+  sni: tp3.bj369.dynv6.net
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      Host: tp3.bj369.dynv6.net
+    path: /?ed=2560&proxyip=proxyip.aliyun.fxxk.dedyn.io
+- name: 🇹🇷 [wzdnzd/aggregator] 土耳其 07
+  password: 66405867-31cb-4fa1-992a-11e2106d36aa
+  port: 43397
+  server: sla.cn.964e995b760.gogodns.xin
+  skip-cert-verify: false
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇦🇺 [wzdnzd/aggregator] 澳大利亚 07
+  password: 84b7ae75-8aa4-4a00-b4fc-730bdbae6592
+  port: 34017
+  server: sla.cn.964e995b760.gogodns.xin
+  skip-cert-verify: false
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] AE 157'
+  password: 0f440dc0-9190-4410-9771-dfbc1eca21b1
+  port: 43497
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-VUZ 01'
+  network: ws
+  port: 2083
+  server: 104.16.0.46
+  servername: x5kh.org
+  tls: true
+  type: vless
+  udp: true
+  uuid: 290dccd7-b2eb-4213-b45f-a5305cc8bc05
+  ws-opts:
+    headers:
+      Host: x5kh.org
+    path: /?ed=2560
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 063
+  password: 799d4d73-89e3-4739-a7aa-7032b243d687
+  port: 27102
+  server: 183.240.116.252
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] 2N-LJY 01'
+  network: ws
+  port: 443
+  server: www.hugedomains.com
+  servername: 240521-2hx.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: 99d3981f-8043-4e36-ba8c-559f9ad08fff
+  ws-opts:
+    headers:
+      Host: 240521-2hx.pages.dev
+    path: /?ed=2560
+- alterId: 0
+  cipher: auto
+  name: '[wzdnzd/aggregator] 其他地区 70'
+  port: 55561
+  server: 45.89.233.23
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 6cd39d5e-42f6-4513-d013-b77172a566a8
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-YXF 01'
+  network: ws
+  port: 2083
+  server: 188.114.99.182
+  servername: test0.lolicon97.pp.ua
+  tls: true
+  type: vless
+  udp: true
+  uuid: 5a6e0b67-8f28-4986-9db4-486b96004c04
+  ws-opts:
+    headers:
+      Host: test0.lolicon97.pp.ua
+    path: /?ed=2560
+- name: 🇳🇱 [wzdnzd/aggregator] NL 084
+  password: 7a046f90-fbfd-47ee-89fd-0062318523df
+  port: 43591
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇭🇰 [wzdnzd/aggregator] HKG 34
+  network: ws
+  port: 443
+  server: 104.18.20.61
+  servername: clu-egtne-er0.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: e70d5699-7692-49ce-a91e-c992f3db7547
+  ws-opts:
+    headers:
+      Host: clu-egtne-er0.pages.dev
+    path: /?ed=2560
+- name: 🇯🇵 [wzdnzd/aggregator] 日本 017
+  password: 1f759f7c-4076-4ef9-a2ba-3700ed71f935
+  port: 27001
+  server: sla.cn.964e995b760.gogodns.xin
+  skip-cert-verify: false
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇸🇬 [wzdnzd/aggregator] 新加坡-云 319
+  password: b09d38ac-826e-44a2-b9de-9272e94f4df7
+  port: 42881
+  server: 183.240.116.224
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] BK-TMF 01'
+  network: ws
+  port: 2053
+  server: 162.159.152.229
+  servername: 0124-ioc.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: f6c821e7-36b6-4377-94f0-3387019971c0
+  ws-opts:
+    headers:
+      Host: 0124-ioc.pages.dev
+    path: /?ed=2560
+- name: 🇹🇼 [wzdnzd/aggregator] 台湾-云 344
+  password: 80db3d92-e6a7-4438-bc04-49dff03f8742
+  port: 27202
+  server: 183.240.116.235
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 318
+  password: 7c88726e-d657-42bd-88f1-bca7cf5def81
+  port: 22269
+  server: 58.254.186.231
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: '[wzdnzd/aggregator] CF 078'
+  network: ws
+  port: 443
+  server: 104.18.148.119
+  servername: 123456789-1xt.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: ae12c293-e971-4a5b-b7bb-fe7ab5b5a8be
+  ws-opts:
+    headers:
+      Host: 123456789-1xt.pages.dev
+    path: /?ed=2560
+- name: 🇯🇵 [wzdnzd/aggregator] 日本-云 197
+  password: 4e603949-a2b1-4493-8d9a-752c34e74a92
+  port: 27001
+  server: 125.94.45.119
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇦🇺 [wzdnzd/aggregator] AU 72
+  password: b2a56034-d487-4f30-9dd0-27fa18958b43
+  port: 34017
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: '[wzdnzd/aggregator] AE 012'
+  password: 7ebe5c61-5ba0-411e-95f1-29f876cf54d1
+  port: 43497
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: random
+  name: 🇰🇷 [wzdnzd/aggregator] 韩国 28
+  network: ws
+  port: 587
+  server: 131.186.24.124
+  servername: leogot.120807.xyz
+  tls: true
+  type: vless
+  udp: true
+  uuid: f075b17a-a5f3-4973-b82e-a8c16f719d5d
+  ws-opts:
+    headers:
+      Host: leogot.120807.xyz
+    path: /?ed=2560
+- name: '[wzdnzd/aggregator] AR 32'
+  password: ff308d8f-6153-48ed-944e-a8158400adc0
+  port: 43590
+  server: sla.cn.964e995b760.gogodns.xin
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- client-fingerprint: randomized
+  name: '[wzdnzd/aggregator] 422'
+  network: ws
+  port: 443
+  server: uriah.ns.cloudflare.com
+  servername: so-817.pages.dev
+  tls: true
+  type: vless
+  udp: true
+  uuid: f566a24e-9a61-4672-aff9-36c649a869aa
+  ws-opts:
+    headers:
+      Host: so-817.pages.dev
+    path: /so-817.pages.dev/?ed=2560
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 439
+  password: 85003f52-39ba-4e68-bb2c-2c332eabc4fd
+  port: 27102
+  server: 58.254.186.233
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
+- name: 🇭🇰 [wzdnzd/aggregator] 香港-云 332
+  password: 3f272536-efb3-4d9a-92c0-5b369cf45818
+  port: 27102
+  server: 183.240.116.235
+  sni: q08m.vgraxiw73s.hasyaf.cn
+  type: trojan
+  udp: true
