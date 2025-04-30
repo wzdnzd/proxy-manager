@@ -5,12 +5,14 @@
 
 
 import base64
+import math
 import os
 import random
 import re
 import threading
 import time
 import traceback
+from collections import defaultdict
 from concurrent import futures
 from datetime import datetime
 from typing import Callable, Dict, List, Optional, Tuple
@@ -131,15 +133,40 @@ class ProxyProcessor(object):
             proxies = nodes if policy == 0 else []
 
             if policy > 0:
+                changed = False
+
                 for proxy in nodes:
-                    name = proxy.get("name", "")
-                    if re.search("cloudflare|google", name, flags=re.I):
+                    if re.search("cloudflare|google", proxy.get("name", ""), flags=re.I):
                         if policy == 1:
-                            proxy["name"] = re.sub("cloudflare|google", "美国", name, flags=re.I)
+                            proxy["name"] = "美国"
+                            changed = True
                         else:
                             continue
 
                     proxies.append(proxy)
+
+                if changed:
+                    records = defaultdict(list)
+                    for proxy in proxies:
+                        name = re.sub(r"-?(\d+|(\d+|\s+|(\d+)?-\d+)[A-Z])$", "", proxy.get("name", "")).strip()
+                        proxy["name"] = name
+                        records[name].append(proxy)
+
+                    results = list()
+                    for k, v in records.items():
+                        if not k or not v:
+                            continue
+
+                        n = max(2, math.floor(math.log10(len(v))) + 1)
+                        for index, node in enumerate(v):
+                            node["name"] = f"{k} {str(index+1).zfill(n)}"
+                            results.append(node)
+
+                    # shuffle
+                    for _ in range(3):
+                        random.shuffle(results)
+
+                    proxies = results
 
                 total, remain = len(nodes), len(proxies)
                 logger.info(
