@@ -2,10 +2,16 @@
 
 FROM python:3.12.10-alpine
 
-LABEL maintainer="wzdnzd"
+### Set up user with permissions
+RUN addgroup -g 1000 app && \
+    adduser -u 1000 -G app -h /home/app -D app
+
+# Switch user
+USER app
 
 # environment variables
-ENV TZ=Asia/Shanghai \
+ENV HOME=/home/app \
+    TZ=Asia/Shanghai \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     MAX_RETRIES=3 \
@@ -22,26 +28,22 @@ EXPOSE ${SERVER_PORT}
 ARG PIP_INDEX_URL="https://pypi.org/simple"
 
 # set work directory
-WORKDIR /distribute
+WORKDIR $HOME/distribute
 
-# copy all *.py files to /distribute
-COPY *.py /distribute
+# copy all *.py files to $HOME/distribute
+COPY --chown=app:app *.py $HOME/distribute/
 
-# copy requirements.txt to /distribute
-COPY requirements.txt /distribute
+# copy requirements.txt to $HOME/distribute
+COPY --chown=app:app requirements.txt $HOME/distribute/
 
-# copy subconverter to /distribute
-COPY subconverter /distribute/subconverter
+# copy subconverter to $HOME/distribute
+COPY --chown=app:app subconverter/ $HOME/distribute/subconverter/
 
 # delete subconverter-windows-amd.exe if exists in subconverter
-RUN rm -rf /distribute/subconverter/subconverter-windows-amd.exe || true
+RUN rm -rf $HOME/distribute/subconverter/subconverter-windows-amd.exe || true
 
 # install dependencies
 RUN pip install -i ${PIP_INDEX_URL} --no-cache-dir -r requirements.txt
-
-# Copy entrypoint script
-COPY entrypoint.sh /distribute/
-RUN chmod +x /distribute/entrypoint.sh
 
 # start and run
 CMD ["python", "-u", "main.py"]

@@ -161,6 +161,9 @@ class SubscribeCache(object):
         # Create the table if it doesn't exist
         create_table(self._table)
 
+        # Refresh the cache immediately on startup
+        self.refresh()
+
         # Start the refresh timer
         self._start_refresh_timer()
 

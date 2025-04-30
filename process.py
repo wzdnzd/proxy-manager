@@ -84,7 +84,7 @@ class ProxyProcessor(object):
             }
             return status
 
-    def split(self, content: str, max_size: int) -> Tuple[bool, str]:
+    def split(self, content: str, max_size: int, tag: str = "") -> Tuple[bool, str]:
         """
         Split and process proxies
 
@@ -120,10 +120,17 @@ class ProxyProcessor(object):
                 os.remove(subconverter_conf)
 
             max_size = max(max_size, 1)
-            proxies = decode(text=content)
+            tag = utils.trim(tag)
+
+            proxies = decode(text=content, emoji=tag == "")
             if not proxies:
                 self._set_completed(False, "Failed to decode proxies")
                 return False, "Failed to decode proxies"
+
+            # add tag to name for each proxy
+            if tag:
+                for proxy in proxies:
+                    proxy["name"] = f"{tag} {proxy.get('name', '')}"
 
             # split proxies into multiple partitions
             partitions = []
@@ -131,6 +138,20 @@ class ProxyProcessor(object):
                 part = proxies[i : i + max_size]
                 index = i // max_size + 1
                 partitions.append((part, index))
+
+            # merge last partition with second-to-last if last partition size is <= max_size/3
+            if len(partitions) >= 2 and len(partitions[-1][0]) <= max_size // 3:
+                # remove last partition
+                last, _ = partitions.pop()
+
+                # remove second-to-last partition
+                prev, cursor = partitions.pop()
+
+                # merge the partitions
+                merged = prev + last
+
+                # add the merged partition back with the second-to-last index
+                partitions.append((merged, cursor))
 
             # execute convert
             tasks = [[p[0], p[1], t, w] for p in partitions for t in settings.SUPPORTED_TARGRTS for w in [True, False]]
@@ -284,7 +305,7 @@ def convert(proxies: List[Dict], partition: int, target: str, without_rules: boo
     return result
 
 
-def decode(text: str, artifact: str = "") -> List[Dict]:
+def decode(text: str, artifact: str = "", emoji: bool = True) -> List[Dict]:
     text, nodes = utils.trim(text=text), []
     if not text:
         return []
@@ -316,7 +337,7 @@ def decode(text: str, artifact: str = "") -> List[Dict]:
         traceback.print_exc()
 
     generate_conf = os.path.join(base_path, "generate.ini")
-    success = subconverter.generate_conf(generate_conf, artifact, f"{artifact}.txt", f"{artifact}.yaml", "clash")
+    success = subconverter.generate_conf(generate_conf, artifact, f"{artifact}.txt", f"{artifact}.yaml", "clash", emoji)
     if not success:
         logger.error("cannot generate subconverter config file")
         os.remove(v2ray_file)

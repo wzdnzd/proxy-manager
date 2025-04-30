@@ -40,6 +40,9 @@ CACHE_REFRESH_INTERVAL: int = max(int(os.environ.get("CACHE_REFRESH_INTERVAL", 3
 # Server port for the API
 SERVER_PORT: int = int(os.environ.get("SERVER_PORT", 7860))
 
+# Water mark for shared proxies
+WATER_MARK: str = utils.trim(os.environ.get("WATER_MARK", ""))
+
 # Database server address
 DB_HOST = utils.trim(os.environ.get("DB_HOST", "127.0.0.1"))
 

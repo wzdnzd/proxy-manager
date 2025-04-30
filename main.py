@@ -33,7 +33,7 @@ def intercept():
             return jsonify({"success": False, "code": 401, "message": "auth failed"})
 
 
-@app.route("/api/v1/partition", methods=["POST"])
+@app.route("/api/v1/partition/submit", methods=["POST"])
 def partition():
     # Check if a partition operation is already in progress
     if processor.is_processing():
@@ -74,7 +74,12 @@ def partition():
     try:
         # Create a background thread to process the data without waiting for completion
         thread = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-        future = thread.submit(processor.split, content=content, max_size=settings.MAX_PROXIES_SIZE)
+        future = thread.submit(
+            processor.split,
+            content=content,
+            max_size=settings.MAX_PROXIES_SIZE,
+            tag=settings.WATER_MARK,
+        )
 
         # Add a callback to shutdown the executor when the task is done
         def done_callback(future):
