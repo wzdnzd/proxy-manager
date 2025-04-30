@@ -122,10 +122,29 @@ class ProxyProcessor(object):
             max_size = max(max_size, 1)
             tag = utils.trim(tag)
 
-            proxies = decode(text=content, emoji=tag == "")
-            if not proxies:
+            nodes = decode(text=content, emoji=tag == "")
+            if not nodes:
                 self._set_completed(False, "Failed to decode proxies")
                 return False, "Failed to decode proxies"
+
+            policy = settings.CLOUDFLARE_POLICY
+            proxies = nodes if policy == 0 else []
+
+            if policy > 0:
+                for proxy in nodes:
+                    name = proxy.get("name", "")
+                    if re.search("cloudflare|google", name, flags=re.I):
+                        if policy == 1:
+                            proxy["name"] = re.sub("cloudflare|google", "美国", name, flags=re.I)
+                        else:
+                            continue
+
+                    proxies.append(proxy)
+
+                total, remain = len(nodes), len(proxies)
+                logger.info(
+                    f"remove cloudflare nodes, policy: {policy}, total: {total}, remain: {remain}, deleted: {total - remain}"
+                )
 
             # add tag to name for each proxy
             if tag:

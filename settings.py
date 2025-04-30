@@ -43,6 +43,9 @@ SERVER_PORT: int = int(os.environ.get("SERVER_PORT", 7860))
 # Water mark for shared proxies
 WATER_MARK: str = utils.trim(os.environ.get("WATER_MARK", ""))
 
+# Cloudflare proxy processing policy, 0 means no processing, 1 means rename to US, 2 means discard
+CLOUDFLARE_POLICY: int = int(os.environ.get("CLOUDFLARE_POLICY", 0))
+
 # Database server address
 DB_HOST = utils.trim(os.environ.get("DB_HOST", "127.0.0.1"))
 
