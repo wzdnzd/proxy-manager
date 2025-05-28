@@ -6,11 +6,12 @@
 import concurrent
 import random
 import re
+import sys
 import time
 
 import requests
 import uvicorn
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, redirect, request
 from uvicorn.middleware.wsgi import WSGIMiddleware
 from werkzeug.exceptions import HTTPException
 
@@ -30,7 +31,7 @@ def intercept():
         auth = utils.trim(request.headers.get("Authorization", "")).removeprefix("Bearer").strip()
 
         if real and real != auth:
-            return jsonify({"success": False, "code": 401, "message": "auth failed"})
+            return jsonify({"success": False, "code": 401, "message": "Auth failed"})
 
 
 @app.route("/api/v1/partition/submit", methods=["POST"])
@@ -46,7 +47,7 @@ def partition():
 
     link = utils.trim(settings.RAW_PROXIES_LINK)
     if not link or not re.match(r"https?://.*", link):
-        return jsonify({"success": False, "code": 400, "message": "raw proxies link is required"})
+        return jsonify({"success": False, "code": 400, "message": "Raw proxies link is required"})
 
     content, retry_count = "", 0
     while retry_count <= settings.MAX_RETRIES:
@@ -69,7 +70,7 @@ def partition():
                 logger.error(f"Failed after {settings.MAX_RETRIES} retries: {str(e)}")
 
     if not content:
-        return jsonify({"success": False, "code": 503, "message": "fetch data failed"})
+        return jsonify({"success": False, "code": 503, "message": "Fetch data failed"})
 
     try:
         # Create a background thread to process the data without waiting for completion
@@ -108,7 +109,10 @@ def partition():
 def subscribe():
     token = utils.trim(request.args.get("token", ""))
     if settings.READ_AUTHORIZATION_KEY and token != settings.READ_AUTHORIZATION_KEY:
-        return jsonify({"success": False, "code": 401, "message": "token is invalid"})
+        if settings.REDIRECT_URL:
+            return redirect(location=settings.REDIRECT_URL)
+
+        return jsonify({"success": False, "code": 401, "message": "Token is invalid"})
 
     target = utils.trim(request.args.get("target", "")).lower()
     if not target:
@@ -121,7 +125,7 @@ def subscribe():
         elif target == "mixed" and "v2ray" in settings.SUPPORTED_TARGRTS:
             target = "v2ray"
         else:
-            return jsonify({"success": False, "code": 400, "message": "target is not supported"})
+            return jsonify({"success": False, "code": 400, "message": f"Target {target} is not supported"})
 
     without_rules = utils.trim(request.args.get("list", "")).lower() in ["true", "1"]
 
@@ -135,20 +139,24 @@ def subscribe():
     if not partition:
         ids = sc.get_all_partitions(target=target, without_rules=without_rules)
         if not ids:
-            return jsonify({"success": False, "code": 404, "message": "no proxies to use"})
+            return jsonify({"success": False, "code": 404, "message": "No proxies to use"})
 
         partition = random.choice(ids)
 
     content = sc.get(target=target, without_rules=without_rules, partition=partition)
     if not content:
-        return jsonify({"success": False, "code": 404, "message": "no proxies to use"})
+        return jsonify({"success": False, "code": 404, "message": "No proxies to use"})
 
-    return content, 200, {"Content-Type": "text/plain; charset=utf-8"}
+    expire, total = 4102413803, sys.maxsize
+    upload, download = random.randint(0, int(1e11)), random.randint(0, int(1e11))
+    userinfo = f"upload={upload}; download={download}; total={total}; expire={expire}"
+
+    return content, 200, {"Content-Type": "text/plain; charset=utf-8", "Subscription-Userinfo": userinfo}
 
 
 @app.route("/api/v1/health", methods=["GET"])
 def health():
-    return jsonify({"success": True, "code": 200, "message": "ok"})
+    return jsonify({"success": True, "code": 200, "message": "OK"})
 
 
 @app.route("/api/v1/partition/status", methods=["GET"])
@@ -173,7 +181,7 @@ def handle_exceptions(e: Exception):
         return jsonify({"success": False, "code": e.code, "message": e.description}), 200
 
     logger.error(f"{str(e)}")
-    return jsonify({"success": False, "code": 503, "message": "internal server error"}), 503
+    return jsonify({"success": False, "code": 503, "message": "Internal server error"}), 503
 
 
 if __name__ == "__main__":

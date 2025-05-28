@@ -54,6 +54,7 @@ def generate_conf(
     source: str,
     dest: str,
     target: str,
+    insert: bool = False,
     emoji: bool = True,
     list_only: bool = True,
     ignore_exclude: bool = False,
@@ -92,6 +93,11 @@ def generate_conf(
             lines.append("list=true")
         else:
             lines.append("list=false")
+
+        if insert:
+            lines.append("insert=true")
+        else:
+            lines.append("insert=false")
 
         if emoji:
             lines.extend(["emoji=true", "add_emoji=true"])

@@ -12,7 +12,7 @@ default_url = []
 # Insert subscription links to requests. Can be used to add node(s) to all exported subscriptions.
 enable_insert = true
 # URLs to insert before subscription links, can be used to add node(s) to all exported subscriptions, supports local files/URL
-insert_url = [""]
+insert_url = ["ss://YWVzLTI1Ni1jZmI6ZmViZjUwMWItZTE5ZC00NDUxLTgwNzEtYWE2MTQ0YmI4ODI1@9.9.9.9:54321#%E5%85%B3%E6%B3%A8https%3A%2F%2Fgithub.com%2Fwzdnzd%E4%B8%8D%E8%BF%B7%E8%B7%AF"]
 # Prepend inserted URLs to subscription links. Nodes in insert_url will be added to groups first with non-group-specific match pattern.
 prepend_insert_url = true
 

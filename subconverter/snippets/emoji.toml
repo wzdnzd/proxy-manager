@@ -376,3 +376,8 @@ emoji = "🇨🇳"
 [[emoji]]
 match = "(未知地域|UNKNOWN)"
 emoji = "👽"
+
+
+[[emoji]]
+match = "关注"
+emoji = "🔔"

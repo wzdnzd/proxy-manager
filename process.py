@@ -291,6 +291,7 @@ def convert(proxies: List[Dict], partition: int, target: str, without_rules: boo
         source=source,
         dest=dest,
         target=target,
+        insert=settings.INSERT_URL,
         list_only=without_rules,
     )
 

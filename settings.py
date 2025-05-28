@@ -67,26 +67,32 @@ DB_TABLENAME = utils.trim(os.environ.get("DB_TABLENAME", "public"))
 # Database connection charset
 DB_CHARSET = "utf8mb4"
 
-# mincached: Number of idle connections to create at startup (default 0 means no connections are created at start)
+# Number of idle connections to create at startup (default 0 means no connections are created at start)
 DB_MIN_CACHED = 1
 
-# maxcached: Maximum number of idle connections in the pool (default 0 means unlimited pool size)
+# Maximum number of idle connections in the pool (default 0 means unlimited pool size)
 DB_MAX_CACHED = 0
 
-# maxshared: Maximum number of shared connections (default 0 means all connections are dedicated). If the maximum is reached, requested shared connections will be shared
+# Maximum number of shared connections (default 0 means all connections are dedicated). If the maximum is reached, requested shared connections will be shared
 DB_MAX_SHARED = 10
 
-# maxconnections: Maximum number of connections to create in the pool (default 0 means unlimited)
+# Maximum number of connections to create in the pool (default 0 means unlimited)
 DB_MAX_CONNECYIONS = 300
 
-# blocking: Behavior when the pool has reached its maximum size (default 0 or False means return an error)
+# Behavior when the pool has reached its maximum size (default 0 or False means return an error)
 DB_BLOCKING = True
 
-# maxusage: Maximum number of times a single connection can be reused (default 0 or False means unlimited reuse). When the maximum is reached, the connection will be automatically reset (closed and reopened)
+# Maximum number of times a single connection can be reused (default 0 or False means unlimited reuse). When the maximum is reached, the connection will be automatically reset (closed and reopened)
 DB_MAX_USAGE = 0
 
-# setsession: An optional list of SQL commands to prepare each session
+# An optional list of SQL commands to prepare each session
 DB_SET_SESSION = None
 
-# creator: Module used to connect to the database
+# Module used to connect to the database
 DB_CREATOR = pymysql
+
+# Forward if token is error
+REDIRECT_URL = utils.trim(os.getenv("REDIRECT_URL", ""))
+
+# Insert default node if true
+INSERT_URL = utils.trim(os.getenv("INSERT_URL", "")).lower() in ["1", "true"]
