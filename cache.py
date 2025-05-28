@@ -286,7 +286,7 @@ class SubscribeCache(object):
             logger.error("Failed to get subscribe content, target cannot be empty")
             return None
 
-        if partition <= 0:
+        if partition < 0:
             logger.error("Failed to get subscribe content, partition must be greater than 0")
             return None
 
@@ -361,7 +361,7 @@ class SubscribeCache(object):
             logger.error("Failed to update subscribe content, target cannot be empty")
             return False
 
-        if partition <= 0:
+        if partition < 0:
             logger.error("Failed to update subscribe content, partition must be greater than 0")
             return False
 
@@ -425,7 +425,7 @@ class SubscribeCache(object):
 
     def clean_expired_partitions(self, partition: int, target: str = None) -> bool:
         """Delete subscribe info from cache and database where partition is greater than the specified value"""
-        if partition <= 0:
+        if partition < 0:
             logger.error("Failed to delete subscribe info, partition must be greater than 0")
             return False
 
@@ -494,7 +494,7 @@ class SubscribeCache(object):
         if target and without_rules is not None:
             if target in current_cache and rule_key in current_cache[target]:
                 # Get all partition IDs for this target and rule setting
-                cache_partitions = [int(x) for x in current_cache[target][rule_key].keys()]
+                cache_partitions = [int(x) for x in current_cache[target][rule_key].keys() if x != '0']
                 if cache_partitions:
                     logger.info(f"Cache hit for get_all_partitions: target={target}, without_rules={without_rules}")
                     return cache_partitions
@@ -506,7 +506,7 @@ class SubscribeCache(object):
             return []
 
         # Collect partition IDs from database results
-        result = [info.partition for info in infos]
+        result = [info.partition for info in infos if info.partition > 0]
 
         # Cache the results in a background thread to avoid blocking the response
         # Only if there's no partition operation in progress

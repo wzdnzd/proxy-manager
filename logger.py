@@ -10,7 +10,7 @@ import sys
 DEFAULT_LOG_LEVEL = logging.INFO
 DEFAULT_LOG_FMT = "%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s: %(message)s"
 DEFAULT_LOG_DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-DEFAULT_LOG_FILENAME = "distribute.log"
+DEFAULT_LOG_FILENAME = "proxy-manager.log"
 
 LOG_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "logs")
 os.makedirs(LOG_PATH, exist_ok=True)

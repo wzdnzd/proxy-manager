@@ -108,11 +108,15 @@ def partition():
 @app.route("/api/v1/subscribe", methods=["GET"])
 def subscribe():
     token = utils.trim(request.args.get("token", ""))
-    if settings.READ_AUTHORIZATION_KEY and token != settings.READ_AUTHORIZATION_KEY:
-        if settings.REDIRECT_URL:
-            return redirect(location=settings.REDIRECT_URL)
+    expired = False
 
-        return jsonify({"success": False, "code": 401, "message": "Token is invalid"})
+    if settings.READ_AUTHORIZATION_KEY and token != settings.READ_AUTHORIZATION_KEY:
+        if settings.EXPIRED_WARNING:
+            expired = True
+        elif settings.REDIRECT_URL:
+            return redirect(location=settings.REDIRECT_URL)
+        else:
+            return jsonify({"success": False, "code": 401, "message": "Token is invalid"})
 
     target = utils.trim(request.args.get("target", "")).lower()
     if not target:
@@ -125,31 +129,42 @@ def subscribe():
         elif target == "mixed" and "v2ray" in settings.SUPPORTED_TARGRTS:
             target = "v2ray"
         else:
+            if settings.REDIRECT_URL:
+                return redirect(location=settings.REDIRECT_URL)
+            
             return jsonify({"success": False, "code": 400, "message": f"Target {target} is not supported"})
 
     without_rules = utils.trim(request.args.get("list", "")).lower() in ["true", "1"]
 
     partition = None
-    if request.args.get("partition", None):
-        try:
-            partition = int(request.args.get("partition"))
-        except Exception:
-            pass
+    if expired:
+        partition = 0
+    else:
+        if request.args.get("partition", None):
+            try:
+                partition = int(request.args.get("partition"))
+            except Exception:
+                pass
 
-    if not partition:
-        ids = sc.get_all_partitions(target=target, without_rules=without_rules)
-        if not ids:
-            return jsonify({"success": False, "code": 404, "message": "No proxies to use"})
+        if not partition:
+            ids = sc.get_all_partitions(target=target, without_rules=without_rules)
+            if not ids:
+                return jsonify({"success": False, "code": 404, "message": "No proxies to use"})
 
-        partition = random.choice(ids)
+            partition = random.choice(ids)
 
     content = sc.get(target=target, without_rules=without_rules, partition=partition)
     if not content:
         return jsonify({"success": False, "code": 404, "message": "No proxies to use"})
 
-    expire, total = 4102413803, sys.maxsize
-    upload, download = random.randint(0, int(1e11)), random.randint(0, int(1e11))
-    userinfo = f"upload={upload}; download={download}; total={total}; expire={expire}"
+    if expired:
+        timestamp, total = int(time.time()), 214748364800
+        upload, download = 106374182400, 109374182400
+    else:
+        timestamp, total = 4102413803, sys.maxsize
+        upload, download = random.randint(0, int(1e11)), random.randint(0, int(1e11))
+
+    userinfo = f"upload={upload}; download={download}; total={total}; expire={timestamp}"
 
     return content, 200, {"Content-Type": "text/plain; charset=utf-8", "Subscription-Userinfo": userinfo}
 

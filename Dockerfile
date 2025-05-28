@@ -1,4 +1,4 @@
-# build: docker buildx build --platform linux/amd64 -f Dockerfile -t wzdnzd/distribute:tag --build-arg PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple" .
+# build: docker buildx build --platform linux/amd64 -f Dockerfile -t wzdnzd/proxy-manager:latest .
 
 FROM python:3.12.10-alpine
 

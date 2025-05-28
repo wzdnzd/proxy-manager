@@ -14,6 +14,7 @@ import time
 import traceback
 from collections import defaultdict
 from concurrent import futures
+from copy import deepcopy
 from datetime import datetime
 from typing import Callable, Dict, List, Optional, Tuple
 
@@ -199,6 +200,12 @@ class ProxyProcessor(object):
                 # add the merged partition back with the second-to-last index
                 partitions.append((merged, cursor))
 
+            # add expired warning to first partition
+            if len(proxies) > 0 and settings.EXPIRED_WARNING:
+                node = deepcopy(proxies[0])
+                node["name"] = settings.EXPIRED_WARNING
+                partitions.append(([node], 0))
+
             # execute convert
             tasks = [[p[0], p[1], t, w] for p in partitions for t in settings.SUPPORTED_TARGRTS for w in [True, False]]
             results = multi_thread_run(func=convert, tasks=tasks, show_progress=True, description="Convert")
@@ -285,13 +292,14 @@ def convert(proxies: List[Dict], partition: int, target: str, without_rules: boo
     extension = subconverter.get_extension(target=target)
     dest = f"{artifact}.{extension}"
 
+    insert = settings.INSERT_URL and partition != 0
     success = subconverter.generate_conf(
         filepath=os.path.join(path, "generate.ini"),
         name=artifact,
         source=source,
         dest=dest,
         target=target,
-        insert=settings.INSERT_URL,
+        insert=insert,
         list_only=without_rules,
     )
 
