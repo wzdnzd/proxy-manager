@@ -130,6 +130,10 @@ class ProxyProcessor(object):
                 self._set_completed(False, "Failed to decode proxies")
                 return False, "Failed to decode proxies"
 
+            if settings.FILTER_CN:
+                pattern = re.compile("中国|China|CN|🇨🇳", flags=re.I)
+                nodes = [node for node in nodes if not re.search(pattern, node.get("name", ""))]
+
             policy = settings.CLOUDFLARE_POLICY
             proxies = nodes if policy == 0 else []
 

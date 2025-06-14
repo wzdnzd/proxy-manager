@@ -97,5 +97,8 @@ REDIRECT_URL = utils.trim(os.getenv("REDIRECT_URL", ""))
 # Insert default node if true
 INSERT_URL = utils.trim(os.getenv("INSERT_URL", "")).lower() in ["1", "true"]
 
+# Filter Chinese proxies
+FILTER_CN = utils.trim(os.getenv("FILTER_CN", "")).lower() in ["1", "true"]
+
 # Expire warning
 EXPIRED_WARNING = utils.trim(os.getenv("EXPIRED_WARNING", ""))
