@@ -40,8 +40,11 @@ CACHE_REFRESH_INTERVAL: int = max(int(os.environ.get("CACHE_REFRESH_INTERVAL", 3
 # Server port for the API
 SERVER_PORT: int = int(os.environ.get("SERVER_PORT", 7860))
 
-# Water mark for shared proxies
-WATER_MARK: str = utils.trim(os.environ.get("WATER_MARK", ""))
+# Prefix mark for shared proxies
+ADDITIONAL_PREFIX: str = utils.trim(os.environ.get("ADDITIONAL_PREFIX", ""))
+
+# Suffix mark for shared proxies
+ADDITIONAL_SUFFIX: str = utils.trim(os.environ.get("ADDITIONAL_SUFFIX", ""))
 
 # Cloudflare proxy processing policy, 0 means no processing, 1 means rename to US, 2 means discard
 CLOUDFLARE_POLICY: int = int(os.environ.get("CLOUDFLARE_POLICY", 0))

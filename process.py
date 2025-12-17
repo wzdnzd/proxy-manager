@@ -87,7 +87,7 @@ class ProxyProcessor(object):
             }
             return status
 
-    def split(self, content: str, max_size: int, tag: str = "") -> Tuple[bool, str]:
+    def split(self, content: str, max_size: int, prefix: str = "", suffix: str = "") -> Tuple[bool, str]:
         """
         Split and process proxies
 
@@ -123,9 +123,10 @@ class ProxyProcessor(object):
                 os.remove(subconverter_conf)
 
             max_size = max(max_size, 1)
-            tag = utils.trim(tag)
+            prefix = utils.trim(prefix)
+            suffix = utils.trim(suffix)
 
-            nodes = decode(text=content, emoji=tag == "")
+            nodes = decode(text=content, emoji=prefix == "")
             if not nodes:
                 self._set_completed(False, "Failed to decode proxies")
                 return False, "Failed to decode proxies"
@@ -178,10 +179,15 @@ class ProxyProcessor(object):
                     f"remove cloudflare nodes, policy: {policy}, total: {total}, remain: {remain}, deleted: {total - remain}"
                 )
 
-            # add tag to name for each proxy
-            if tag:
+            # add prefix mark to name for each proxy
+            if prefix:
                 for proxy in proxies:
-                    proxy["name"] = f"{tag} {proxy.get('name', '')}"
+                    proxy["name"] = f"{prefix} {proxy.get('name', '')}"
+
+            # add suffix mark to name for each proxy
+            if suffix:
+                for proxy in proxies:
+                    proxy["name"] = f"{proxy.get('name', '')} {suffix}"
 
             # split proxies into multiple partitions
             partitions = []

@@ -79,7 +79,8 @@ def partition():
             processor.split,
             content=content,
             max_size=settings.MAX_PROXIES_SIZE,
-            tag=settings.WATER_MARK,
+            prefix=settings.ADDITIONAL_PREFIX,
+            suffix=settings.ADDITIONAL_SUFFIX,
         )
 
         # Add a callback to shutdown the executor when the task is done
@@ -131,7 +132,7 @@ def subscribe():
         else:
             if settings.REDIRECT_URL:
                 return redirect(location=settings.REDIRECT_URL)
-            
+
             return jsonify({"success": False, "code": 400, "message": f"Target {target} is not supported"})
 
     without_rules = utils.trim(request.args.get("list", "")).lower() in ["true", "1"]
