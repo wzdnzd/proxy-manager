@@ -105,3 +105,6 @@ FILTER_CN = utils.trim(os.getenv("FILTER_CN", "")).lower() in ["1", "true"]
 
 # Expire warning
 EXPIRED_WARNING = utils.trim(os.getenv("EXPIRED_WARNING", ""))
+
+# Thread number for partition
+PARTITION_THREAD_NUM = int(os.environ.get("PARTITION_THREAD_NUM", -1))

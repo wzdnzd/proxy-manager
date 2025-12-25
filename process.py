@@ -218,7 +218,13 @@ class ProxyProcessor(object):
 
             # execute convert
             tasks = [[p[0], p[1], t, w] for p in partitions for t in settings.SUPPORTED_TARGRTS for w in [True, False]]
-            results = multi_thread_run(func=convert, tasks=tasks, show_progress=True, description="Convert")
+            results = multi_thread_run(
+                func=convert,
+                tasks=tasks,
+                num_threads=settings.PARTITION_THREAD_NUM,
+                show_progress=True,
+                description="Convert",
+            )
 
             successed_tasks, failed_tasks = [], []
             for result in results:
