@@ -408,7 +408,9 @@ def decode(text: str, artifact: str = "", emoji: bool = True) -> List[Dict]:
         traceback.print_exc()
 
     generate_conf = os.path.join(base_path, "generate.ini")
-    success = subconverter.generate_conf(generate_conf, artifact, f"{artifact}.txt", f"{artifact}.yaml", "clash", emoji)
+    success = subconverter.generate_conf(
+        generate_conf, artifact, f"{artifact}.txt", f"{artifact}.yaml", "clash", False, emoji
+    )
     if not success:
         logger.error("cannot generate subconverter config file")
         os.remove(v2ray_file)
