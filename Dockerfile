@@ -33,6 +33,9 @@ WORKDIR $HOME/distribute
 # copy all *.py files to $HOME/distribute
 COPY --chown=app:app *.py $HOME/distribute/
 
+# copy github-ip-ranges.json to $HOME/distribute
+COPY --chown=app:app github-ip-ranges.json $HOME/distribute/
+
 # copy requirements.txt to $HOME/distribute
 COPY --chown=app:app requirements.txt $HOME/distribute/
 

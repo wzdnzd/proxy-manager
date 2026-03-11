@@ -108,3 +108,18 @@ EXPIRED_WARNING = utils.trim(os.getenv("EXPIRED_WARNING", ""))
 
 # Thread number for partition
 PARTITION_THREAD_NUM = int(os.environ.get("PARTITION_THREAD_NUM", -1))
+
+# Add Github server's IP to blacklist if true
+BAN_GITHUB_IP = utils.trim(os.getenv("BAN_GITHUB_IP", "")).lower() in ["1", "true"]
+
+# GitHub meta API for actions IP ranges
+GITHUB_META_URL = utils.trim(os.getenv("GITHUB_META_URL", "https://api.github.com/meta"))
+
+# GitHub meta cache file path (relative paths are resolved against project root)
+GITHUB_META_CACHE_FILE = utils.trim(os.getenv("GITHUB_META_CACHE_FILE", "github-ip-ranges.json"))
+
+# GitHub meta refresh interval (seconds)
+GITHUB_META_REFRESH_INTERVAL = max(int(os.getenv("GITHUB_META_REFRESH_INTERVAL", 86400)), 600)
+
+# GitHub meta request timeout (seconds)
+GITHUB_META_TIMEOUT = max(int(os.getenv("GITHUB_META_TIMEOUT", 60)), 1)

@@ -4,6 +4,7 @@
 # @Time    : 2025-04-25
 
 import concurrent
+import ipaddress
 import random
 import re
 import sys
@@ -17,11 +18,68 @@ from werkzeug.exceptions import HTTPException
 
 import settings
 import utils
+from blacklist import client
 from cache import subscribe_cache as sc
 from logger import logger
 from process import processor
 
 app = Flask(__name__)
+
+_FORWARDED_FOR_RE = re.compile(r'for=(?P<value>"[^"]+"|[^;,\\s]+)', flags=re.I)
+
+
+def _normalize_forwarded_value(value: str) -> str:
+    if not value:
+        return ""
+
+    value = utils.trim(value)
+    if value.startswith("for="):
+        value = value[4:]
+    value = value.strip().strip('"')
+
+    if value.startswith("[") and "]" in value:
+        return value[1 : value.index("]")]
+
+    if value.count(":") == 1 and value.rsplit(":", 1)[-1].isdigit():
+        return value.rsplit(":", 1)[0]
+
+    return value
+
+
+def _extract_client_ip_and_host() -> tuple[str, str]:
+    candidates = []
+
+    xff = utils.trim(request.headers.get("X-Forwarded-For", ""))
+    if xff:
+        candidates.extend(xff.split(","))
+
+    forwarded = utils.trim(request.headers.get("Forwarded", ""))
+    if forwarded:
+        for match in _FORWARDED_FOR_RE.finditer(forwarded):
+            candidates.append(match.group("value"))
+
+    for header in ["X-Real-IP", "CF-Connecting-IP", "True-Client-IP"]:
+        value = utils.trim(request.headers.get(header, ""))
+        if value:
+            candidates.append(value)
+
+    if request.remote_addr:
+        candidates.append(request.remote_addr)
+
+    ip, host = "", ""
+    for raw in candidates:
+        value = _normalize_forwarded_value(raw)
+        if not value:
+            continue
+        try:
+            ipaddress.ip_address(value)
+            ip = value
+            break
+        except Exception:
+            if not host:
+                host = value.lower().strip(".")
+
+    return ip, host
 
 
 @app.before_request
@@ -118,6 +176,13 @@ def subscribe():
             return redirect(location=settings.REDIRECT_URL)
         else:
             return jsonify({"success": False, "code": 401, "message": "Token is invalid"})
+
+    if settings.BAN_GITHUB_IP:
+        ip, host = _extract_client_ip_and_host()
+        if client.block(ip=ip, host=host):
+            message = "Forbidden: GitHub Actions crawler is not allowed"
+            logger.warning(f"Blocked GitHub Actions Server: ip={ip}, host={host}")
+            return jsonify({"success": False, "code": 403, "message": message})
 
     target = utils.trim(request.args.get("target", "")).lower()
     if not target:
